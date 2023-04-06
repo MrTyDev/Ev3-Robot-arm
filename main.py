@@ -31,14 +31,14 @@ def pickup(position):
 
     # Lower the arm.
     elbow_motor = arm_motor
-    elbow_motor.run_until_stalled(-1000, then=Stop.HOLD, duty_limit=70)
+    elbow_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=30)
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
-    gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=70)
+    gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=10)
 
     # Raise the arm to lift the wheel stack.
-    elbow_motor.run_target(500, 0) 
+    elbow_motor.run_target(-300, 0) 
 
 def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
@@ -49,4 +49,4 @@ def color_recognition():
 
 # Write your program here.
 color_recognition()
-pickup(4000)
+pickup(0)
