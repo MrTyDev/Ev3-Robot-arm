@@ -45,8 +45,9 @@ def drop():
     claw_motor.reset_angle(0)
     claw_motor.run_target(200, -90)
 def color_recognition():
-    print(color_sensor.color())
+    return color_sensor.color()
+
 
 # Write your program here.
 ev3.speaker.beep()
-color_recognition()
+print(color_recognition())
