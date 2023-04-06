@@ -27,6 +27,7 @@ def calibrate_arm():
     limit_sensor = touch_sensor
     base_motor = turn_motor
     elbow_motor = arm_motor
+    i = 1
     while (color.reflection()) < 36:
         #print(color.reflection())
         #print(elbow_motor.angle()) 
@@ -43,16 +44,10 @@ def calibrate_arm():
         # Raise the arm to lift the wheel stack.
         claw.run_angle(30, 25)
         print(claw.angle())
-        if claw.angle() < 25:
+        if claw.angle() < 25 * i:
             claw.run_angle(30, -75)
             break
-    while claw.angle() > -75:
-        # Raise the arm to lift the wheel stack.
-        claw.run_angle(30, -25)
-        print(claw.angle())
-        if claw.angle() > -25:
-            claw.run_angle(30, 75)
-            break
+        i += 1
 
 
         wait(200)
