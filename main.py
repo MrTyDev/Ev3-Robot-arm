@@ -22,13 +22,39 @@ touch_sensor = TouchSensor(Port.S1)
 
 def calibrate_arm():
     """Resets the robot arm position"""
+    color = color_sensor
+    claw = claw_motor
     limit_sensor = touch_sensor
     base_motor = turn_motor
     elbow_motor = arm_motor
-    while elbow_motor.angle() > -350:
-        print(elbow_motor.angle()) 
+    while (color.reflection()) < 36:
+        #print(color.reflection())
+        #print(elbow_motor.angle()) 
+        # Raise the arm to lift the wheel stack.
+        elbow_motor.run_angle(30, 20)
+        wait(200)
+    while color.reflection() > 0:
+        #print(color.reflection())
+        #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(30, -20)
+        wait(200)
+    while claw.angle() < 75:
+        # Raise the arm to lift the wheel stack.
+        claw.run_angle(30, 25)
+        print(claw.angle())
+        if claw.angle() < 25:
+            claw.run_angle(30, -75)
+            break
+    while claw.angle() > -75:
+        # Raise the arm to lift the wheel stack.
+        claw.run_angle(30, -25)
+        print(claw.angle())
+        if claw.angle() > -25:
+            claw.run_angle(30, 75)
+            break
+
+
         wait(200)
     while not limit_sensor.pressed():
         print(limit_sensor.pressed())
@@ -36,10 +62,6 @@ def calibrate_arm():
         base_motor.run_angle(20, 25)
         wait(200)
     print("robot calibrated")
-
-
-
-
 
 
 def pickup(position):
@@ -56,10 +78,10 @@ def pickup(position):
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
 
     # Raise the arm to lift the wheel stack.
-    elbow_motor.run_target(-300, 0) 
-    while True:
-        gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=50)
-        wait(10)
+    elbow_motor.run_target(-300, -200) 
+    #while True:
+        #gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=50)
+        #wait(10)
 
 def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
@@ -71,5 +93,7 @@ def color_recognition():
 
 
 # Write your program here.
-color_recognition()
-pickup(0)
+calibrate_arm()
+pickup(-100)
+drop()
+
