@@ -17,6 +17,7 @@ ev3 = EV3Brick()
 turn_motor = Motor(Port.C)
 arm_motor = Motor(Port.B)
 claw_motor = Motor(Port.A)
+color_sensor = Motor(Port.S2)
 
 
 # Write your program here.
@@ -25,3 +26,4 @@ arm_motor.run_until_stalled(-100, then=Stop.COAST, duty_limit=100)
 claw_motor.run_time(50, 3000, then=Stop.HOLD, wait=True)
 arm_motor.run_until_stalled(70, then=Stop.COAST, duty_limit=50)
 claw_motor.run_time(-50, 2000, then=Stop.HOLD, wait=True)
+
