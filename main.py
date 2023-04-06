@@ -49,10 +49,4 @@ def color_recognition():
 
 # Write your program here.
 color_recognition()
-option = input("1: Pickup| 2: Drop | 3: Color Recognition\nChoose: ")
-if option == "1":
-    pickup()
-else if option == "2":
-    drop()
-else if option == "3":
-    color_recognition()
+pickup(4000)
