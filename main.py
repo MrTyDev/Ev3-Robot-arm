@@ -42,7 +42,7 @@ def pickup(position):
     elbow_motor.run_target(-300, 0) 
     while True:
         gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=50)
-        break
+        wait(10)
 
 def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
