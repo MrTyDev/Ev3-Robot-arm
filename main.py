@@ -32,7 +32,7 @@ def pickup(position):
 
     # Lower the arm.
     elbow_motor = arm_motor
-    elbow_motor.run_until_stalled(-1000, then=Stop.HOLD, duty_limit=70)
+    elbow_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=50)
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
@@ -40,10 +40,9 @@ def pickup(position):
 
     # Raise the arm to lift the wheel stack.
     elbow_motor.run_target(-300, 0) 
-    print(gripper_motor.STATE_STALLED)
-    while gripper_motor.STATE_STALLED:
-        gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=100)
-        
+    while True:
+        gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=50)
+        break
 
 def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
