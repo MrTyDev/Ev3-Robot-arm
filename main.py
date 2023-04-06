@@ -23,7 +23,7 @@ color_sensor = Motor(Port.S2)
 
 # Write your program here.
 ev3.speaker.beep()
-
+color_recognition()
 
 def pickup(position):
     # Rotate to the pick-up position.
