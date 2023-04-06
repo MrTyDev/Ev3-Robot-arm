@@ -17,7 +17,7 @@ ev3 = EV3Brick()
 turn_motor = Motor(Port.C)
 arm_motor = Motor(Port.B)
 claw_motor = Motor(Port.A)
-color_sensor = Motor(Port.S2)
+color_sensor = ColorSensor(Port.S2)
 
 
 
