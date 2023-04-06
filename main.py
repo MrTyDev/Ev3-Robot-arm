@@ -18,6 +18,7 @@ turn_motor = Motor(Port.C)
 arm_motor = Motor(Port.B)
 claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
+touch_sensor = TouchSensor(Port.S1)
 
 
 
@@ -46,6 +47,8 @@ def drop():
     claw_motor.run_target(200, -90)
 def color_recognition():
     return color_sensor.color()
+
+
 
 # Write your program here.
 color_recognition()
