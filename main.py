@@ -28,4 +28,20 @@ arm_motor.run_until_stalled(70, then=Stop.COAST, duty_limit=50)
 claw_motor.run_time(-50, 2000, then=Stop.HOLD, wait=True)
 
 def pickup():
+    # Rotate to the pick-up position.
+    base_motor = turn_motor
+    base_motor.run_target(60, position)
+
+    # Lower the arm.
+    elbow_motor = arm_motor
+    elbow_motor.run_target(60, -40)
+
+    # Close the gripper to grab the wheel stack.
+    gripper_motor = claw_motor
+    gripper_motor.run_until_stalled(200, then=Stop.HOLD, duty_limit=50)
+
+    # Raise the arm to lift the wheel stack.
+    elbow_motor.run_target(60, 0)
+
+
     
