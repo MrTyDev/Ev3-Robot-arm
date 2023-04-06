@@ -20,6 +20,23 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
+def calibrate_arm():
+    """Resets the robot arm position"""
+    limit_sensor = touch_sensor
+    base_motor = turn_motor
+    elbow_motor = arm_motor
+    while elbow_motor.angle() > -350:
+        print(elbow_motor.angle()) 
+        # Raise the arm to lift the wheel stack.
+        elbow_motor.run_angle(30, -20)
+        wait(200)
+    while not limit_sensor.pressed():
+        print(limit_sensor.pressed())
+        # Rotate to the pick-up position.
+        base_motor.run_angle(20, 25)
+        wait(200)
+    print("robot calibrated")
+
 
 
 
