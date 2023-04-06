@@ -50,3 +50,5 @@ def color_recognition():
 # Write your program here.
 color_recognition()
 pickup(0)
+turn_motor.run_target(60, 2000)
+drop(0)
