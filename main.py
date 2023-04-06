@@ -41,8 +41,9 @@ def pickup(position):
     # Raise the arm to lift the wheel stack.
     elbow_motor.run_target(-300, 0) 
 
-    while True:
+    for _ in range(100):
         gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=100)
+        wait(0.1)
 
 def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
