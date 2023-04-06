@@ -21,9 +21,8 @@ color_sensor = ColorSensor(Port.S2)
 
 
 
-# Write your program here.
-ev3.speaker.beep()
-color_recognition()
+
+
 
 def pickup(position):
     # Rotate to the pick-up position.
@@ -47,3 +46,7 @@ def drop():
     claw_motor.run_target(200, -90)
 def color_recognition():
     print(color_sensor.color())
+
+# Write your program here.
+ev3.speaker.beep()
+color_recognition()
