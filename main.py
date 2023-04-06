@@ -18,6 +18,7 @@ turn_motor = Motor(Port.C)
 arm_motor = Motor(Port.B)
 claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
+touch_sensor = TouchSensor(Port.S1)
 
 
 
@@ -31,14 +32,14 @@ def pickup(position):
 
     # Lower the arm.
     elbow_motor = arm_motor
-    elbow_motor.run_until_stalled(-1000, then=Stop.HOLD, duty_limit=30)
+    elbow_motor.run_until_stalled(-1000, then=Stop.HOLD, duty_limit=70)
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
-    gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=70)
+    gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
 
     # Raise the arm to lift the wheel stack.
-    elbow_motor.run_target(500, 0) 
+    elbow_motor.run_target(-300, 0) 
 
     while True:
         gripper_motor.run_until_stalled(600, then=Stop.HOLD, duty_limit=100)
@@ -50,6 +51,8 @@ def drop():
 def color_recognition():
     return color_sensor.color()
 
+
+
 # Write your program here.
 color_recognition()
-pickup(4000)
+pickup(0)
