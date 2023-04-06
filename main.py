@@ -47,7 +47,7 @@ def drop():
 def color_recognition():
     return color_sensor.color()
 
-
-# Write your program here.
-ev3.speaker.beep()
-print(color_recognition())
+#Run code here
+if __main__ == "__name__"
+    ev3.speaker.beep()
+    print(color_recognition())
