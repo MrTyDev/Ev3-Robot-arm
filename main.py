@@ -48,5 +48,11 @@ def color_recognition():
     return color_sensor.color()
 
 # Write your program here.
-ev3.speaker.beep()
 color_recognition()
+option = input("1: Pickup| 2: Drop | 3: Color Recognition\nChoose: ")
+if option == "1":
+    pickup()
+else if option == "2":
+    drop()
+else if option == "3":
+    color_recognition()
