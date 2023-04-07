@@ -21,7 +21,8 @@ color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
 
-
+def color_recognition():
+    return color_sensor.color()
 
 
 
@@ -49,8 +50,7 @@ def drop():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
     claw_motor.reset_angle(0)
     claw_motor.run_target(200, -90)
-def color_recognition():
-    return color_sensor.color()
+
 
 
 
