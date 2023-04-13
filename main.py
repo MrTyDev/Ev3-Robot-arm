@@ -31,23 +31,23 @@ def calibrate_arm():
        
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(100, 20)
-        wait(1)
+        elbow_motor.run_angle(50, 25)
+        
     while color.reflection() > 0:
 
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(100, -20)
+        elbow_motor.run_angle(50, -25)
     
-        wait(1)
+        
  
     drop()
             
     while not limit_sensor.pressed():
         # Rotate to the pick-up position.
-        base_motor.run_angle(100, 25)
+        base_motor.run_angle(50, 25)
         print(base_motor.angle())
-        wait(1)
+        
 
     print("robot calibrated")
     return base_motor.reset_angle(0)
@@ -68,7 +68,7 @@ def pickup(position):
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     print(elbow_motor.angle())
-    elbow_motor.run_target(-100, -175)
+    elbow_motor.run_target(-100, -375)
     print(elbow_motor.angle())
     #print(base_motor.angle())
     wait(500)
@@ -76,6 +76,8 @@ def pickup(position):
         print(color_recognition())
         print("YAAAAAAY")
         wait(5000)
+    else:
+        print("Nothing here to pick up")
     wait(500)
 
 def drop():
