@@ -28,26 +28,29 @@ def calibrate_arm():
     base_motor = turn_motor
     elbow_motor = arm_motor
     while (color.reflection()) < 36:
-        #print(f"Reflection: {color.reflection()}")
-        #print(f"Elbow motor: {elbow_motor.angle()}") 
+       
+        #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(100, 20)
         wait(1)
     while color.reflection() > 0:
-        print(f"Reflection: {color.reflection()}")
-        print(f"Elbow motor: {elbow_motor.angle()}") 
+
+        #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(100, -20)
+    
         wait(1)
-
+ 
     drop()
             
     while not limit_sensor.pressed():
-        print(limit_sensor.pressed())
         # Rotate to the pick-up position.
         base_motor.run_angle(100, 25)
+        print(base_motor.angle())
         wait(1)
+
     print("robot calibrated")
+    return base_motor.reset_angle(0)
 
 def pickup(position):
     # Rotate to the pick-up position.
@@ -61,12 +64,16 @@ def pickup(position):
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
-
+    
     # Raise the arm to lift the wheel stack.
-    elbow_motor.run_target(-300, -200) 
+    elbow_motor.reset_angle(0)
+    print(elbow_motor.angle())
+    elbow_motor.run_target(-100, -300)
+    print(elbow_motor.angle())
+    #print(base_motor.angle())
     wait(500)
-    print(color_recognition())
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE:
+        print(color_recognition())
         print("YAAAAAAY")
         wait(5000)
     wait(500)
@@ -82,6 +89,6 @@ def color_recognition():
 
 # Write your program here.
 calibrate_arm()
-pickup(-400)
+pickup(-300)
 drop()
 
