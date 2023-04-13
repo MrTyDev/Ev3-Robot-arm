@@ -63,13 +63,15 @@ def pickup(position):
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
+    gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
-    
+    print(gripper_motor.angle())
+    if gripper_motor.angle()>85:
+        gripper_motor.run_angle(100,-100)
+
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
-    print(elbow_motor.angle())
     elbow_motor.run_target(-100, -375)
-    print(elbow_motor.angle())
     #print(base_motor.angle())
     wait(500)
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE:
