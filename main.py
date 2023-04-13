@@ -68,7 +68,7 @@ def pickup(position):
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     print(elbow_motor.angle())
-    elbow_motor.run_target(-100, -300)
+    elbow_motor.run_target(-100, -175)
     print(elbow_motor.angle())
     #print(base_motor.angle())
     wait(500)
