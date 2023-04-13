@@ -28,14 +28,14 @@ def calibrate_arm():
     base_motor = turn_motor
     elbow_motor = arm_motor
     while (color.reflection()) < 36:
-        #print(color.reflection())
-        #print(elbow_motor.angle()) 
+        #print(f"Reflection: {color.reflection()}")
+        #print(f"Elbow motor: {elbow_motor.angle()}") 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(100, 20)
         wait(1)
     while color.reflection() > 0:
-        #print(color.reflection())
-        #print(elbow_motor.angle()) 
+        print(f"Reflection: {color.reflection()}")
+        print(f"Elbow motor: {elbow_motor.angle()}") 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(100, -20)
         wait(1)
@@ -52,7 +52,7 @@ def calibrate_arm():
 def pickup(position):
     # Rotate to the pick-up position.
     base_motor = turn_motor
-    base_motor.run_target(60, position)
+    base_motor.run_angle(60, position)
 
     # Lower the arm.
     elbow_motor = arm_motor
@@ -66,7 +66,7 @@ def pickup(position):
     elbow_motor.run_target(-300, -200) 
     wait(500)
     print(color_recognition())
-    if color_recognition() == Color.RED:
+    if color_recognition() == Color.RED or color_recognition() == Color.BLUE:
         print("YAAAAAAY")
         wait(5000)
     wait(500)
@@ -82,6 +82,6 @@ def color_recognition():
 
 # Write your program here.
 calibrate_arm()
-pickup(-100)
+pickup(-400)
 drop()
 
