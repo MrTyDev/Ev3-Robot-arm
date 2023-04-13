@@ -95,5 +95,13 @@ def drop_at_pos(position):
 # Write your program here.
 calibrate_arm()
 pickup(-300)
-drop_at_pos(0)
+
+current_color =  color_recognition()
+
+if current_color == Color.BLUE:
+    drop_at_pos(0)
+elif current_color == Color.RED:
+    drop_at_pos(-600)
+else:
+    drop_at_pos(-300)
 
