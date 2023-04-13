@@ -89,13 +89,11 @@ def color_recognition():
     return color_sensor.color()
 
 def drop_at_pos(position):
-    calibrate_arm()
-    arm_motor.reset_angle(0)
-    arm_motor.run_target(-100, position)
+    turn_motor.run_target(-100, position)
     drop()
 
 # Write your program here.
 calibrate_arm()
 pickup(-300)
-drop()
+drop_at_pos(0)
 
