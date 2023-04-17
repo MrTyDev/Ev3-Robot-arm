@@ -75,7 +75,9 @@ def pickup(pickup_position,elbow_taget):
     #print(base_motor.angle())
     wait(500)
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
-        print(color_recognition())
+        color = color_recognition()
+        ev3.speaker.say((str(color).lower()).replace("color.", ""))
+
         print("YAAAAAAY")
         wait(5000)
     else:
@@ -103,6 +105,8 @@ def drop_at_pos(position):
 
 # Write your program here.
 calibrate_arm()
+
+
 pickup(-350,-425)
 drop_at_pos(-700)
 
