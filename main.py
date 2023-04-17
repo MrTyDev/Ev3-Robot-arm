@@ -52,10 +52,10 @@ def calibrate_arm():
     print("robot calibrated")
     return base_motor.reset_angle(0)
 
-def pickup(position,elbow_taget):
+def pickup(pickup_position,elbow_taget):
     # Rotate to the pick-up position.
     base_motor = turn_motor
-    base_motor.run_angle(60, position)
+    base_motor.run_angle(60, pickup_position)
 
     # Lower the arm.
     elbow_motor = arm_motor
@@ -74,7 +74,7 @@ def pickup(position,elbow_taget):
     elbow_motor.run_target(-100, elbow_taget)
     #print(base_motor.angle())
     wait(500)
-    if color_recognition() == Color.RED or color_recognition() == Color.BLUE:
+    if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
         print(color_recognition())
         print("YAAAAAAY")
         wait(5000)
@@ -92,22 +92,11 @@ def color_recognition():
 
 def drop_at_pos(position):
     turn_motor.run_target(-100, position)
-    arm_motor.run_target(-100, 150)
+    arm_motor.run_target(-100, 25)
     drop()
-    arm_motor.run_target(-100, -150)
+    arm_motor.run_target(100, 100)
+    
 
-    current_color =  color_recognition()
-
-    if current_color == Color.BLUE:
-        drop_at_pos(0)
-    elif current_color == Color.RED:
-        drop_at_pos(-700)
-    elif current_color == Color.YELLOW:
-        drop_at_pos(-700)
-    elif current_color == Color.GREEN:
-        drop_at_pos(-350)
-    else:
-        drop_at_pos(-350)
 
 
 
@@ -115,13 +104,7 @@ def drop_at_pos(position):
 # Write your program here.
 calibrate_arm()
 pickup(-350,-425)
+drop_at_pos(-700)
 
-current_color =  color_recognition()
 
-if current_color == Color.BLUE:
-    drop_at_pos(0)
-elif current_color == Color.RED:
-    drop_at_pos(-700)
-else:
-    drop_at_pos(-350)
 
