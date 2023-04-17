@@ -77,7 +77,7 @@ def pickup(pickup_position,elbow_taget):
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
-
+        
         print("YAAAAAAY")
         wait(5000)
     else:
