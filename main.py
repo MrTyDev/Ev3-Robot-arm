@@ -43,7 +43,7 @@ def calibrate_arm():
  
     open_claw()
             
-    while not limit_sensor.pressed():
+    while not touch_sensor.pressed():
         # Rotate to the pick-up position.
         base_motor.run_angle(50, 25)
         print(base_motor.angle())
