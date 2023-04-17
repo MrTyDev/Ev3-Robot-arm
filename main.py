@@ -20,7 +20,7 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
-def calibrate_arm():
+def calibrate_arm(speed, angle):
     """Resets the robot arm position"""
     color = color_sensor
     claw = claw_motor
@@ -31,13 +31,13 @@ def calibrate_arm():
        
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(50, 25)
+        elbow_motor.run_angle(speed, angle)
         
     while color.reflection() > 0:
 
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(50, -25)
+        elbow_motor.run_angle(speed, -angle)
     
         
  
@@ -45,7 +45,7 @@ def calibrate_arm():
             
     while not limit_sensor.pressed():
         # Rotate to the pick-up position.
-        base_motor.run_angle(50, 25)
+        base_motor.run_angle(speed, angle)
         print(base_motor.angle())
         
 
@@ -78,22 +78,22 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
         if color == Color.RED:
-            drop_at_pos(drop_pos_A)
+            drop_at_pos(drop_pos_A,elbow_taget)
         elif color == Color.BLUE:
-            drop_at_pos(drop_pos_B)
+            drop_at_pos(drop_pos_B,elbow_taget)
         elif color == Color.GREEN:
-            drop_at_pos(drop_pos_C)
+            drop_at_pos(drop_pos_C,elbow_taget)
         elif color == Color.YELLOW:
-            drop_at_pos(drop_pos_D)
+            drop_at_pos(drop_pos_D,elbow_taget)
         elif color == Color.WHITE:
-            drop_at_pos(drop_pos_E)
+            drop_at_pos(drop_pos_E,elbow_taget)
         else:
             elbow_motor
         print("YAAAAAAY")
         wait(5000)
     else:
         ev3.speaker.say("Nothing here!")
-    wait(500)
+
     
 def open_claw():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
@@ -103,11 +103,12 @@ def open_claw():
 def color_recognition():
     return color_sensor.color()
 
-def drop_at_pos(position):
+def drop_at_pos(position,elbow_taget):
     turn_motor.run_target(-100, position)
     arm_motor.run_target(-100, 25)
     open_claw()
-    arm_motor.run_until_stalled(100)
+     # Raise the arm to lift the wheel stack.
+    arm_motor.run_target(-100, elbow_taget)
     
 
 
@@ -122,11 +123,12 @@ drop_pos_E = -600
 current_pos = 0
 
 
-calibrate_arm()
+
 for _ in range(240): # 240 iterations of 0.25s = 60s
-    pickup(current_pos, -425, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
-    current_pos += 150
-    if current_pos > 600:
+    calibrate_arm(150,75)
+    pickup(current_pos, -415, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+    current_pos -= 150
+    if current_pos < -600:
         current_pos = 0
     wait(250) # wait for 0.25s
 
