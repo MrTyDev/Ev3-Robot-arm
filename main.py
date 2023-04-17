@@ -68,7 +68,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     print(gripper_motor.angle())
     if gripper_motor.angle()>85:
         gripper_motor.run_angle(100,-100)
-
+        
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     elbow_motor.run_target(-100, elbow_taget)
