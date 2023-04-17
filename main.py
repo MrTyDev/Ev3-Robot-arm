@@ -113,16 +113,20 @@ def drop_at_pos(position):
 
 
 
-
 # Write your program here.
 drop_pos_A = 0
 drop_pos_B = -150
 drop_pos_C = -300
 drop_pos_D = -450
 drop_pos_E = -600
+current_pos = 0
 
 
 calibrate_arm()
-pickup(-350,-425, drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E)
-
+for _ in range(240): # 240 iterations of 0.25s = 60s
+    pickup(current_pos, -425, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+    current_pos += 150
+    if current_pos > 600:
+        current_pos = 0
+    wait(250) # wait for 0.25s
 
