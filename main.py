@@ -53,14 +53,17 @@ def calibrate_arm(speed, angle):
     return base_motor.reset_angle(0)
 
 def calibrate2():
-    arm_motor.run_until_stalled(-50, then=Stop.COAST, duty_limit=None)
-    arm_motor.run_angle(50,-25)
+    arm_motor.run_until_stalled(75, then=Stop.HOLD, duty_limit=None)
+    arm_motor.reset_angle(0)
+    print("SDADAS")
+    arm_motor.run_angle(100,-450)
+
     open_claw()
     
-    while not limit_sensor.pressed():
+    while not touch_sensor.pressed():
         # Rotate to the pick-up position.
-        base_motor.run_angle(50, 25)
-        print(base_motor.angle())
+        turn_motor.run_angle(50, 25)
+        #print(turn_motor.angle())
     
 
 def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
@@ -76,7 +79,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     gripper_motor = claw_motor
     gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
-    print(gripper_motor.angle())
+    #print(gripper_motor.angle())
     if gripper_motor.angle()>85:
         gripper_motor.run_angle(100,-100)
         
@@ -126,18 +129,18 @@ def drop_at_pos(position,elbow_taget):
 
 
 # Write your program here.
-drop_pos_A = 0
+drop_pos_A = 25
 drop_pos_B = -150
-drop_pos_C = -300
+drop_pos_C = -200
 drop_pos_D = -450
-drop_pos_E = -600
-current_pos = 0
+drop_pos_E = -525
+current_pos = drop_pos_A
 
 
-
+calibrate2()
 for _ in range(240): # 240 iterations of 0.25s = 60s
-    calibrate_arm(150,75)
     pickup(current_pos, -415, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+    print(turn_motor.angle())
     current_pos -= 150
     if current_pos < -600:
         current_pos = 0
