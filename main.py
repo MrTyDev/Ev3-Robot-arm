@@ -104,8 +104,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
             drop_at_pos(drop_pos_E,elbow_taget)
         else:
             elbow_motor
-        print("YAAAAAAY")
-        wait(5000)
+        wait(500)
     else:
         ev3.speaker.say("Nothing here!")
 
