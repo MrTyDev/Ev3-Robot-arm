@@ -63,8 +63,9 @@ def calibrate2():
     while not touch_sensor.pressed():
         # Rotate to the pick-up position.
         turn_motor.run_angle(50, 25)
+        
         #print(turn_motor.angle())
-    
+    turn_motor.reset_angle(0)
 
 def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
     # Rotate to the pick-up position.
@@ -129,7 +130,7 @@ def drop_at_pos(position,elbow_taget):
 
 
 # Write your program here.
-drop_pos_A = 25
+drop_pos_A = 0
 drop_pos_B = -150
 drop_pos_C = -200
 drop_pos_D = -450
@@ -138,11 +139,8 @@ current_pos = drop_pos_A
 
 
 calibrate2()
-for _ in range(240): # 240 iterations of 0.25s = 60s
+for current_pos in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
     pickup(current_pos, -415, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     print(turn_motor.angle())
-    current_pos -= 150
-    if current_pos < -600:
-        current_pos = 0
     wait(250) # wait for 0.25s
 
