@@ -111,4 +111,9 @@ pickup(-350,-425)
 drop_at_pos(-700)
 
 
+drop_pos_A = 0
+drop_pos_B = -150
+drop_pos_C = -300
+drop_pos_D = -450
+drop_pos_E = -600
 
