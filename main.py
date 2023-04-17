@@ -41,7 +41,7 @@ def calibrate_arm():
     
         
  
-    drop()
+    open_claw()
             
     while not limit_sensor.pressed():
         # Rotate to the pick-up position.
@@ -82,7 +82,7 @@ def pickup(pickup_position,elbow_taget):
         print("Nothing here to pick up")
     wait(500)
 
-def drop():
+def open_claw():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
     claw_motor.reset_angle(0)
     claw_motor.run_target(200, -90)
@@ -93,7 +93,7 @@ def color_recognition():
 def drop_at_pos(position):
     turn_motor.run_target(-100, position)
     arm_motor.run_target(-100, 25)
-    drop()
+    open_claw()
     arm_motor.run_target(100, 100)
     
 
