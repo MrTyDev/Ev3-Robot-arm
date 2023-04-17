@@ -87,13 +87,14 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
             drop_at_pos(drop_pos_D)
         elif color == Color.WHITE:
             drop_at_pos(drop_pos_E)
-
+        else:
+            elbow_motor
         print("YAAAAAAY")
         wait(5000)
     else:
-        print("Nothing here to pick up")
+        ev3.speaker.say("Nothing here!")
     wait(500)
-
+    
 def open_claw():
     claw_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=50)
     claw_motor.reset_angle(0)
@@ -106,7 +107,7 @@ def drop_at_pos(position):
     turn_motor.run_target(-100, position)
     arm_motor.run_target(-100, 25)
     open_claw()
-    arm_motor.run_target(100, 100)
+    arm_motor.run_until_stalled(100)
     
 
 
@@ -122,9 +123,6 @@ drop_pos_E = -600
 
 
 calibrate_arm()
-
-
 pickup(-350,-425, drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E)
-drop_at_pos(-700)
 
 
