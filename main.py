@@ -43,7 +43,7 @@ def calibrate_arm(speed, angle):
  
     open_claw()
             
-    while not limit_sensor.pressed():
+    while not touch_sensor.pressed():
         # Rotate to the pick-up position.
         base_motor.run_angle(speed, angle)
         print(base_motor.angle())
@@ -51,6 +51,17 @@ def calibrate_arm(speed, angle):
 
     print("robot calibrated")
     return base_motor.reset_angle(0)
+
+def calibrate2():
+    arm_motor.run_until_stalled(-50, then=Stop.COAST, duty_limit=None)
+    arm_motor.run_angle(50,-25)
+    open_claw()
+    
+    while not limit_sensor.pressed():
+        # Rotate to the pick-up position.
+        base_motor.run_angle(50, 25)
+        print(base_motor.angle())
+    
 
 def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
     # Rotate to the pick-up position.
