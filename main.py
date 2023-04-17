@@ -52,7 +52,7 @@ def calibrate_arm():
     print("robot calibrated")
     return base_motor.reset_angle(0)
 
-def pickup(pickup_position,elbow_taget):
+def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
     # Rotate to the pick-up position.
     base_motor = turn_motor
     base_motor.run_angle(60, pickup_position)
@@ -77,7 +77,17 @@ def pickup(pickup_position,elbow_taget):
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
-        
+        if color == Color.RED:
+            drop_at_pos(drop_pos_A)
+        elif color == Color.BLUE:
+            drop_at_pos(drop_pos_B)
+        elif color == Color.GREEN:
+            drop_at_pos(drop_pos_C)
+        elif color == Color.YELLOW:
+            drop_at_pos(drop_pos_D)
+        elif color == Color.WHITE:
+            drop_at_pos(drop_pos_E)
+
         print("YAAAAAAY")
         wait(5000)
     else:
@@ -104,16 +114,17 @@ def drop_at_pos(position):
 
 
 # Write your program here.
-calibrate_arm()
-
-
-pickup(-350,-425)
-drop_at_pos(-700)
-
-
 drop_pos_A = 0
 drop_pos_B = -150
 drop_pos_C = -300
 drop_pos_D = -450
 drop_pos_E = -600
+
+
+calibrate_arm()
+
+
+pickup(-350,-425, drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E)
+drop_at_pos(-700)
+
 
