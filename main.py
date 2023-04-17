@@ -138,8 +138,9 @@ current_pos = drop_pos_A
 
 
 calibrate2()
-for current_pos in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
+for i in range(5):
     pickup(current_pos, -415, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+    current_pos -= 150
     print(turn_motor.angle())
     wait(250) # wait for 0.25s
 
