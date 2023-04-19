@@ -70,13 +70,15 @@ def calibrate2(elbow_taget):
     turn_motor.reset_angle(0)
 
 def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
-    # Rotate to the pick-up position.
-    base_motor = turn_motor
-    base_motor.run_angle(60, pickup_position)
 
     # Lower the arm.
     elbow_motor = arm_motor
-    elbow_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=50)
+    elbow_motor.run_target(300,pickup_position[1])
+
+    # Rotate to the pick-up position.
+    base_motor = turn_motor
+    base_motor.run_angle(60, pickup_position[0])
+
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
@@ -135,22 +137,22 @@ def drop_at_pos(position,elbow_taget):
 
 
 # Write your program here.
-drop_pos_A = (0, 10)
-drop_pos_B = (-150,)
-drop_pos_C = (-300,)
-drop_pos_D = (-450,)
-drop_pos_E = (-600,)
+drop_pos_A = (0,-200)
+drop_pos_B = (-150,-300)
+drop_pos_C = (-300,-400)
+drop_pos_D = (-450,-500)
+drop_pos_E = (-600,-600)
 current_pos = 0
 
 
 calibrate2(-800)
 for l in range(3):
-    for i in [drop_pos_A[0], drop_pos_B[0], drop_pos_C[0], drop_pos_D[0], drop_pos_E[0]]:
+    for i in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
 
        #print(turn_motor.angle())
        #print(current_pos)
-        current_pos = i - turn_motor.angle()
-        pickup(current_pos, -430, (drop_pos_A), drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+        current_pos = (i[0] - turn_motor.angle(),i[1])
+        pickup(current_pos, -420, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     
 
         #print(turn_motor.angle())
