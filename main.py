@@ -28,14 +28,14 @@ def calibrate_arm(speed, angle):
     limit_sensor = touch_sensor
     base_motor = turn_motor
     elbow_motor = arm_motor
-    while (color.reflection()) < 36:
-       
+    while (color.reflection()) < 25:
+        print(color.reflection())
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(speed, angle)
         
-    while color.reflection() > 0:
-
+    while color.reflection() >= 0:
+        print(color.reflection())
         #print(elbow_motor.angle()) 
         # Raise the arm to lift the wheel stack.
         elbow_motor.run_angle(speed, -angle)
@@ -90,7 +90,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     elbow_motor.run_target(-100, elbow_taget)
-    print(color_sensor.reflection())    
+    print("Color reflection: "+str(color_sensor.reflection()))    
     if color_sensor.reflection() > 10 and color_sensor.reflection() < 20:
         gripper_motor.run_angle(100,-100)
     #print(base_motor.angle())
@@ -150,7 +150,7 @@ for l in range(3):
        #print(turn_motor.angle())
        #print(current_pos)
         current_pos = i - turn_motor.angle()
-        pickup(current_pos, -460, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+        pickup(current_pos, -430, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     
 
         #print(turn_motor.angle())
