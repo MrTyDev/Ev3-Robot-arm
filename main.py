@@ -82,7 +82,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     gripper_motor = claw_motor
     gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
-    print(gripper_motor.angle())
+    print("Gripper angle: "+str(gripper_motor.angle()))
     if gripper_motor.angle() >= 110 :
         gripper_motor.run_angle(100,-100)
         
@@ -90,7 +90,8 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     elbow_motor.run_target(-100, elbow_taget)
-    if color_sensor.reflection() > 10 and color_sensor.reflection() < 15:
+    print(color_sensor.reflection())    
+    if color_sensor.reflection() > 10 and color_sensor.reflection() < 20:
         gripper_motor.run_angle(100,-100)
     #print(base_motor.angle())
     wait(500)
@@ -111,7 +112,6 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
             elbow_motor
         wait(500)
     else:
-        print(color_sensor.reflection())
         ev3.speaker.say("Nothing here!")
 
     
