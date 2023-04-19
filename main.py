@@ -55,10 +55,10 @@ def calibrate_arm(speed, angle):
 def calibrate2(elbow_taget):
     arm_motor.run_until_stalled(75, then=Stop.HOLD, duty_limit=None)
     arm_motor.reset_angle(0)
-    print("SDADAS")
+    arm_motor.run_target(-75,elbow_taget)
+    print("Calibrated")
     # Raise the arm to lift the wheel stack.
-    arm_motor.run_target(100, elbow_taget)
-
+    
     open_claw()
     
     while not touch_sensor.pressed():
@@ -82,7 +82,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
     print(gripper_motor.angle())
-    if gripper_motor.angle() >= 99:
+    if gripper_motor.angle() >= 110:
         gripper_motor.run_angle(100,-100)
         
         
@@ -139,7 +139,7 @@ drop_pos_E = -600
 current_pos = 0
 
 
-calibrate2(-460)
+calibrate2(-660)
 for l in range(3):
     for i in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
 
