@@ -20,6 +20,7 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
+
 def calibrate_arm(speed, angle):
     """Resets the robot arm position"""
     color = color_sensor
@@ -82,13 +83,15 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
     print(gripper_motor.angle())
-    if gripper_motor.angle() >= 110:
+    if gripper_motor.angle() >= 110 :
         gripper_motor.run_angle(100,-100)
         
         
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
     elbow_motor.run_target(-100, elbow_taget)
+    if color_sensor.reflection() > 10 and color_sensor.reflection() < 15:
+        gripper_motor.run_angle(100,-100)
     #print(base_motor.angle())
     wait(500)
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
@@ -108,6 +111,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
             elbow_motor
         wait(500)
     else:
+        print(color_sensor.reflection())
         ev3.speaker.say("Nothing here!")
 
     
@@ -139,12 +143,12 @@ drop_pos_E = -600
 current_pos = 0
 
 
-calibrate2(-660)
+calibrate2(-800)
 for l in range(3):
     for i in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
 
-        print(turn_motor.angle())
-        print(current_pos)
+       #print(turn_motor.angle())
+       #print(current_pos)
         current_pos = i - turn_motor.angle()
         pickup(current_pos, -460, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     
