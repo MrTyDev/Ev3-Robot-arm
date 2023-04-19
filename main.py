@@ -145,7 +145,7 @@ current_pos = 0
 
 calibrate2(-800)
 for l in range(3):
-    for i in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
+    for i in [drop_pos_A[0], drop_pos_B[0], drop_pos_C[0], drop_pos_D[0], drop_pos_E[0]]:
 
        #print(turn_motor.angle())
        #print(current_pos)
