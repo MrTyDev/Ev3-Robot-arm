@@ -20,38 +20,16 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
+offset_X = 0
+offset_Y = 0
 
-def calibrate_arm(speed, angle):
-    """Resets the robot arm position"""
-    color = color_sensor
-    claw = claw_motor
-    limit_sensor = touch_sensor
-    base_motor = turn_motor
-    elbow_motor = arm_motor
-    while (color.reflection()) < 25:
-        print(color.reflection())
-        #print(elbow_motor.angle()) 
-        # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(speed, angle)
-        
-    while color.reflection() >= 0:
-        print(color.reflection())
-        #print(elbow_motor.angle()) 
-        # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(speed, -angle)
-    
-        
- 
-    open_claw()
-            
-    while not touch_sensor.pressed():
-        # Rotate to the pick-up position.
-        base_motor.run_angle(speed, angle)
-        print(base_motor.angle())
-        
-
-    print("robot calibrated")
-    return base_motor.reset_angle(0)
+color_positions = {
+    "Color.RED": 0, 
+    "Color.BLUE": -150,
+    "Color.WHITE": -300,
+    "Color.YELLOW": -450,
+    "Color.GREEN": -600
+}
 
 def calibrate2(elbow_taget):
     arm_motor.run_until_stalled(75, then=Stop.HOLD, duty_limit=None)
@@ -69,7 +47,7 @@ def calibrate2(elbow_taget):
         #print(turn_motor.angle())
     turn_motor.reset_angle(0)
 
-def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
+def pickup(pickup_position,elbow_taget):
     # Rotate to the pick-up position.
     base_motor = turn_motor
     base_motor.run_angle(60, pickup_position)
@@ -95,21 +73,12 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
         gripper_motor.run_angle(100,-100)
     #print(base_motor.angle())
     wait(500)
-    if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
+    if str(color_recognition()) in color_positions :
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
-        if color == Color.RED:
-            drop_at_pos(drop_pos_A,elbow_taget)
-        elif color == Color.BLUE:
-            drop_at_pos(drop_pos_B,elbow_taget)
-        elif color == Color.WHITE:
-            drop_at_pos(drop_pos_C,elbow_taget)
-        elif color == Color.YELLOW:
-            drop_at_pos(drop_pos_D,elbow_taget)
-        elif color == Color.GREEN:
-            drop_at_pos(drop_pos_E,elbow_taget)
-        else:
-            elbow_motor
+        
+        drop_at_pos(color_positions[str(color)], elbow_taget)
+        
         wait(500)
     else:
         ev3.speaker.say("Nothing here!")
