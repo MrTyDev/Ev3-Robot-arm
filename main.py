@@ -20,6 +20,16 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
+offset_X = 0
+offset_Y = 0
+
+color_positions = {
+    "Color.RED": (0 - offset_X,-200 - offset_Y),
+    "Color.BLUE": (-150- offset_X,-300 - offset_Y),
+    "Color.WHITE": (-300- offset_X,-400 - offset_Y),
+    "Color.YELLOW": (-450- offset_X,-500 - offset_Y),
+    "Color.GREEN": (-600- offset_X,-600 - offset_Y)
+}
 
 def calibrate_arm(speed, angle):
     """Resets the robot arm position"""
@@ -69,7 +79,7 @@ def calibrate2(elbow_taget):
         #print(turn_motor.angle())
     turn_motor.reset_angle(0)
 
-def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos_D,drop_pos_E):
+def pickup(pickup_position,elbow_taget):
 
     # Lower the arm.
     elbow_motor = arm_motor
@@ -100,18 +110,9 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     if color_recognition() == Color.RED or color_recognition() == Color.BLUE or color_recognition() == Color.YELLOW or color_recognition() == Color.GREEN or color_recognition() == Color.WHITE:
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
-        if color == Color.RED:
-            drop_at_pos(drop_pos_A,elbow_taget)
-        elif color == Color.BLUE:
-            drop_at_pos(drop_pos_B,elbow_taget)
-        elif color == Color.WHITE:
-            drop_at_pos(drop_pos_C,elbow_taget)
-        elif color == Color.YELLOW:
-            drop_at_pos(drop_pos_D,elbow_taget)
-        elif color == Color.GREEN:
-            drop_at_pos(drop_pos_E,elbow_taget)
-        else:
-            elbow_motor
+        
+        drop_at_pos(color_positions[str(color)], elbow_taget)
+        
         wait(500)
     else:
         ev3.speaker.say("Nothing here!")
@@ -133,17 +134,8 @@ def drop_at_pos(position,elbow_taget):
      # Raise the arm to lift the wheel stack.
     arm_motor.run_target(-100, elbow_taget)
     
-
-
-
-offset_X = 0
-offset_Y = 0
 # Write your program here.
-drop_pos_A = (0 - offset_X,-200 - offset_Y)
-drop_pos_B = (-150- offset_X,-300 - offset_Y)
-drop_pos_C = (-300- offset_X,-400 - offset_Y)
-drop_pos_D = (-450- offset_X,-500 - offset_Y)
-drop_pos_E = (-600- offset_X,-600 - offset_Y)
+
 current_pos = 0
 
 
