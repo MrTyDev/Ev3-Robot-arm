@@ -50,8 +50,10 @@ def pickup(pickup_position,elbow_taget):
     # Rotate to the pick-up position.
     base_motor = turn_motor
     base_motor.run_angle(60, pickup_position)
+    
     ev3.speaker.say("Waiting 5 seconds before pick up")
     wait(5000)
+
     # Lower the arm.
     elbow_motor = arm_motor
     elbow_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=50)
@@ -63,7 +65,7 @@ def pickup(pickup_position,elbow_taget):
     print("Gripper angle: "+str(gripper_motor.angle()))
     if gripper_motor.angle() >= 110 :
         gripper_motor.run_angle(100,-100)
-        
+     
         
     # Raise the arm to lift the wheel stack.
     elbow_motor.reset_angle(0)
@@ -114,6 +116,7 @@ for l in range(3):
        #print(turn_motor.angle())
        #print(current_pos)
         current_pos = i - turn_motor.angle()
+
         pickup(current_pos, -510)
 
 
