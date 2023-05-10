@@ -73,7 +73,7 @@ def pickup(pickup_position,elbow_taget):
         gripper_motor.run_angle(100,-100)
     #print(base_motor.angle())
     wait(500)
-    if str(color_recognition()) in color_positions :
+    if str(color_recognition()) in color_positions:
         color = color_recognition()
         ev3.speaker.say((str(color).lower()).replace("color.", ""))
         
