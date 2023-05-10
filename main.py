@@ -104,11 +104,6 @@ def drop_at_pos(position,elbow_taget):
 
 
 # Write your program here.
-drop_pos_A = 0
-drop_pos_B = -150
-drop_pos_C = -300
-drop_pos_D = -450
-drop_pos_E = -600
 current_pos = 0
 
 
@@ -119,7 +114,7 @@ for l in range(3):
        #print(turn_motor.angle())
        #print(current_pos)
         current_pos = i - turn_motor.angle()
-        pickup(current_pos, -430, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+        pickup(current_pos, -430)
     
 
         #print(turn_motor.angle())
