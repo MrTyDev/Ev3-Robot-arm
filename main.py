@@ -31,38 +31,6 @@ color_positions = {
     "Color.GREEN": (-600- offset_X,-600 - offset_Y)
 }
 
-def calibrate_arm(speed, angle):
-    """Resets the robot arm position"""
-    color = color_sensor
-    claw = claw_motor
-    limit_sensor = touch_sensor
-    base_motor = turn_motor
-    elbow_motor = arm_motor
-    while (color.reflection()) < 25:
-        print(color.reflection())
-        #print(elbow_motor.angle()) 
-        # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(speed, angle)
-        
-    while color.reflection() >= 0:
-        print(color.reflection())
-        #print(elbow_motor.angle()) 
-        # Raise the arm to lift the wheel stack.
-        elbow_motor.run_angle(speed, -angle)
-    
-        
- 
-    open_claw()
-            
-    while not touch_sensor.pressed():
-        # Rotate to the pick-up position.
-        base_motor.run_angle(speed, angle)
-        print(base_motor.angle())
-        
-
-    print("robot calibrated")
-    return base_motor.reset_angle(0)
-
 def calibrate2(elbow_taget):
     arm_motor.run_until_stalled(75, then=Stop.HOLD, duty_limit=None)
     arm_motor.reset_angle(0)
