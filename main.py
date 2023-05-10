@@ -85,7 +85,7 @@ def pickup(pickup_position,elbow_taget,drop_pos_A,drop_pos_B,drop_pos_C,drop_pos
     gripper_motor.reset_angle(0)
     gripper_motor.run_until_stalled(300, then=Stop.HOLD, duty_limit=100)
     print("Gripper angle: "+str(gripper_motor.angle()))
-    if gripper_motor.angle() >= 110 :
+    if gripper_motor.angle() >= 100 :
         gripper_motor.run_angle(100,-100)
         
         
@@ -122,6 +122,7 @@ def open_claw():
     claw_motor.reset_angle(0)
     claw_motor.run_target(200, -90)
 
+
 def color_recognition():
     return color_sensor.color()
 
@@ -135,22 +136,24 @@ def drop_at_pos(position,elbow_taget):
 
 
 
-
+offset_X = 0
+offset_Y = 0
 # Write your program here.
-drop_pos_A = (0,-200)
-drop_pos_B = (-150,-300)
-drop_pos_C = (-300,-400)
-drop_pos_D = (-450,-500)
-drop_pos_E = (-600,-600)
+drop_pos_A = (0 - offset_X,-200 - offset_Y)
+drop_pos_B = (-150- offset_X,-300 - offset_Y)
+drop_pos_C = (-300- offset_X,-400 - offset_Y)
+drop_pos_D = (-450- offset_X,-500 - offset_Y)
+drop_pos_E = (-600- offset_X,-600 - offset_Y)
 current_pos = 0
 
 
 calibrate2(-800)
 for l in range(3):
-    for i in [drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E]:
+    for i in [(0,-200),(0,-200),(0,-200),(0,-200),(0,-200)]:
 
        #print(turn_motor.angle())
        #print(current_pos)
+        print(arm_motor.angle())
         current_pos = (i[0] - turn_motor.angle(),i[1])
         pickup(current_pos, -420, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     
