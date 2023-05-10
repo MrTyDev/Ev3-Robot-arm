@@ -148,12 +148,14 @@ current_pos = 0
 
 
 calibrate2(-800)
+
 for l in range(3):
-    for i in [(0,-200),(0,-200),(0,-200),(0,-200),(0,-200)]:
+
+    for i in [(0, -200),(0, -200),(0, -200),(0,-200),(0,-200)]:
 
        #print(turn_motor.angle())
        #print(current_pos)
-        print(arm_motor.angle())
+        print(" ARM MOTOR ANGLE" + str(arm_motor.angle()))
         current_pos = (i[0] - turn_motor.angle(),i[1])
         pickup(current_pos, -420, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
     
