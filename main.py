@@ -149,7 +149,7 @@ for l in range(3):
        #print(current_pos)
         print(" ARM MOTOR ANGLE" + str(arm_motor.angle()))
         current_pos = (i[0] - turn_motor.angle(),i[1])
-        pickup(current_pos, -420, drop_pos_A, drop_pos_B, drop_pos_C, drop_pos_D, drop_pos_E)
+        pickup(current_pos, -420)
     
 
         #print(turn_motor.angle())
