@@ -50,7 +50,6 @@ def pickup(pickup_position,elbow_taget):
     # Rotate to the pick-up position.
     base_motor = turn_motor
     base_motor.run_angle(60, pickup_position)
-
     ev3.speaker.say("Waiting 5 seconds before pick up")
     wait(5000)
     # Lower the arm.
@@ -116,7 +115,7 @@ for l in range(3):
        #print(current_pos)
         current_pos = i - turn_motor.angle()
         pickup(current_pos, -510)
-    
+
 
         #print(turn_motor.angle())
         wait(250) # wait for 0.25s
