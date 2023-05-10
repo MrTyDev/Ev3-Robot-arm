@@ -20,11 +20,9 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
-offset_X = 0
-offset_Y = 0
 
 color_positions = {
-    "Color.RED": 0, 
+    "Color.RED": -150, 
     "Color.BLUE": -150,
     "Color.WHITE": -300,
     "Color.YELLOW": -450,
@@ -110,11 +108,13 @@ current_pos = 0
 calibrate2(-800)
 for l in range(3):
     for i in [0, 0, 0, 0, 0]:
-
+        ev3.speaker.say("Waiting 5 seconds before pick up")
+        ev3.speaker.say("777777777777")
+        wait(5000)
        #print(turn_motor.angle())
        #print(current_pos)
         current_pos = i - turn_motor.angle()
-        pickup(current_pos, -430)
+        pickup(current_pos, -510)
     
 
         #print(turn_motor.angle())
