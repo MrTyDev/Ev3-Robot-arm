@@ -57,6 +57,8 @@ def pickup(pickup_position,elbow_taget):
     base_motor = turn_motor
     base_motor.run_angle(60, pickup_position[0])
 
+    if pickup_position[1] > 0:
+        arm_motor.run_until_stalled(-75, then=Stop.HOLD, duty_limit=None)
 
     # Close the gripper to grab the wheel stack.
     gripper_motor = claw_motor
@@ -109,17 +111,23 @@ current_pos = 0
 
 calibrate2(-800)
 
-for l in range(3):
+pickup((-400,0),-420)    
 
-    for i in [(0, -200),(0, -200),(0, -200),(0,-200),(0,-200)]:
 
-       #print(turn_motor.angle())
-       #print(current_pos)
-        print(" ARM MOTOR ANGLE" + str(arm_motor.angle()))
-        current_pos = (i[0] - turn_motor.angle(),i[1])
-        pickup(current_pos, -420)
+# for l in range(3):
+
+#     for i in [(0, -200),(0, -200),(0, -200),(0,-200),(0,-200)]:
+
+#        #print(turn_motor.angle())
+#        #print(current_pos)
+#         print(" ARM MOTOR ANGLE" + str(arm_motor.angle()))
+#         current_pos = (i[0] - turn_motor.angle(),i[1])
+#         pickup(current_pos, -420)
     
 
-        #print(turn_motor.angle())
-        wait(250) # wait for 0.25s
+#         #print(turn_motor.angle())
+#         wait(250) # wait for 0.25s
+
+
+
 
