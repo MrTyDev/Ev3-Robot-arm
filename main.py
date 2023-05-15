@@ -20,7 +20,9 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
 
-
+# This is where you change pickup locations
+list_of_pickup_locations = [0, 0, 0, 0, 0]
+# This is where you choose drop of location
 color_positions = {
     "Color.RED": -150, 
     "Color.BLUE": -150,
@@ -111,7 +113,7 @@ current_pos = 0
 
 calibrate2(-800)
 for l in range(3):
-    for i in [0, 0, 0, 0, 0]:
+    for i in list_of_pickup_locations:
 
        #print(turn_motor.angle())
        #print(current_pos)
